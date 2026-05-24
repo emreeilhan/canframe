@@ -1,0 +1,11 @@
+build/
+*.o
+*.a
+*.out
+*.log
+*.dSYM/
+canframe
+test_runner
+fuzz_parser
+fuzz_deffile
+

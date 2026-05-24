@@ -1,0 +1,3 @@
+message 0x123 EngineData
+  signal rpm start=0 length=16 endian=little signed=false scale=0.25 offset=0 unit=rpm
+
