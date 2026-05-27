@@ -26,6 +26,10 @@ static int process_stream(FILE *stream, const canframe_cli_options_t *options) {
       return 1;
     }
 
+    if (!canframe_filter_matches(options, frame.id)) {
+      continue;
+    }
+
     if (options->json_mode) {
       output_json(stdout, &frame);
     } else {
@@ -56,10 +60,12 @@ int main(int argc, char **argv) {
       fprintf(stderr, "canframe: %s\n", canframe_status_string(status));
       return 1;
     }
-    if (options.json_mode) {
-      output_json(stdout, &frame);
-    } else {
-      output_raw(stdout, &frame);
+    if (canframe_filter_matches(&options, frame.id)) {
+      if (options.json_mode) {
+        output_json(stdout, &frame);
+      } else {
+        output_raw(stdout, &frame);
+      }
     }
     return 0;
   }
