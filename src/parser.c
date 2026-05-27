@@ -104,20 +104,232 @@ canframe_status_t parse_compact_frame(const char *input, can_frame_t *out) {
   return CANFRAME_OK;
 }
 
+/* Parse: (1700000000.123456) can0 123#1122334455667788 */
+static canframe_status_t parse_timestamped(const char *input, can_frame_t *out) {
+  const char *p;
+  const char *end;
+  char ts_buf[32];
+  size_t ts_len;
+  char *ts_end;
+  double timestamp;
+  char ifname[CANFRAME_IFNAME_MAX];
+  size_t ifname_len;
+  canframe_status_t status;
+
+  p = input;
+
+  if (*p != '(') {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+  ++p;
+
+  end = strchr(p, ')');
+  if (end == NULL) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  ts_len = (size_t)(end - p);
+  if (ts_len == 0 || ts_len >= sizeof(ts_buf)) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  memcpy(ts_buf, p, ts_len);
+  ts_buf[ts_len] = '\0';
+
+  timestamp = strtod(ts_buf, &ts_end);
+  if (ts_end == ts_buf || *ts_end != '\0') {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  p = end + 1;
+  while (isspace((unsigned char)*p)) {
+    ++p;
+  }
+
+  end = p;
+  while (*end != '\0' && !isspace((unsigned char)*end)) {
+    ++end;
+  }
+
+  ifname_len = (size_t)(end - p);
+  if (ifname_len == 0 || ifname_len >= CANFRAME_IFNAME_MAX) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  memcpy(ifname, p, ifname_len);
+  ifname[ifname_len] = '\0';
+
+  p = end;
+  while (isspace((unsigned char)*p)) {
+    ++p;
+  }
+
+  status = parse_compact_frame(p, out);
+  if (status != CANFRAME_OK) {
+    return status;
+  }
+
+  out->has_timestamp = true;
+  out->timestamp = timestamp;
+  memcpy(out->ifname, ifname, ifname_len + 1U);
+
+  return CANFRAME_OK;
+}
+
+/* Parse: can0  123  [8]  11 22 33 44 55 66 77 88 */
+static canframe_status_t parse_verbose(const char *input, can_frame_t *out) {
+  const char *p;
+  const char *end;
+  char ifname[CANFRAME_IFNAME_MAX];
+  size_t ifname_len;
+  uint32_t id;
+  char dlc_buf[8];
+  size_t dlc_str_len;
+  char *dlc_end_ptr;
+  unsigned long dlc_val;
+  uint8_t dlc;
+  uint8_t bytes[CANFRAME_MAX_DLC];
+  uint8_t count;
+  int high;
+  int low;
+
+  p = input;
+
+  end = p;
+  while (*end != '\0' && !isspace((unsigned char)*end)) {
+    ++end;
+  }
+
+  ifname_len = (size_t)(end - p);
+  if (ifname_len == 0 || ifname_len >= CANFRAME_IFNAME_MAX) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  memcpy(ifname, p, ifname_len);
+  ifname[ifname_len] = '\0';
+
+  p = end;
+  while (isspace((unsigned char)*p)) {
+    ++p;
+  }
+
+  end = p;
+  while (*end != '\0' && !isspace((unsigned char)*end) && *end != '[') {
+    ++end;
+  }
+
+  if (!parse_hex_u32(p, (size_t)(end - p), &id)) {
+    return CANFRAME_ERR_INVALID_ID;
+  }
+
+  if (id > 0x1FFFFFFFU) {
+    return CANFRAME_ERR_INVALID_ID;
+  }
+
+  p = end;
+  while (isspace((unsigned char)*p)) {
+    ++p;
+  }
+
+  if (*p != '[') {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+  ++p;
+
+  end = strchr(p, ']');
+  if (end == NULL) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  dlc_str_len = (size_t)(end - p);
+  if (dlc_str_len == 0 || dlc_str_len >= sizeof(dlc_buf)) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  memcpy(dlc_buf, p, dlc_str_len);
+  dlc_buf[dlc_str_len] = '\0';
+
+  dlc_val = strtoul(dlc_buf, &dlc_end_ptr, 10);
+  if (*dlc_end_ptr != '\0' || dlc_val > CANFRAME_MAX_DLC) {
+    return CANFRAME_ERR_INVALID_DLC;
+  }
+
+  dlc = (uint8_t)dlc_val;
+
+  p = end + 1;
+  while (isspace((unsigned char)*p)) {
+    ++p;
+  }
+
+  count = 0;
+  while (*p != '\0' && count < dlc) {
+    if (!isxdigit((unsigned char)*p) || !isxdigit((unsigned char)*(p + 1U))) {
+      return CANFRAME_ERR_INVALID_DATA;
+    }
+
+    high = hex_value(*p);
+    low = hex_value(*(p + 1U));
+
+    if (high < 0 || low < 0) {
+      return CANFRAME_ERR_INVALID_DATA;
+    }
+
+    bytes[count] = (uint8_t)((high << 4) | low);
+    ++count;
+    p += 2U;
+
+    while (isspace((unsigned char)*p)) {
+      ++p;
+    }
+  }
+
+  if (count != dlc) {
+    return CANFRAME_ERR_INVALID_DATA;
+  }
+
+  zero_frame(out);
+  out->id = id;
+  out->is_extended = id > 0x7FFU;
+  out->dlc = dlc;
+  memcpy(out->data, bytes, dlc);
+  memcpy(out->ifname, ifname, ifname_len + 1U);
+
+  return CANFRAME_OK;
+}
+
 canframe_status_t parse_candump_line(const char *input, can_frame_t *out) {
-  (void)input;
-  (void)out;
-  return CANFRAME_ERR_UNSUPPORTED;
+  if (input == NULL || out == NULL) {
+    return CANFRAME_ERR_INVALID_FORMAT;
+  }
+
+  if (*input == '(') {
+    return parse_timestamped(input, out);
+  }
+
+  return parse_verbose(input, out);
 }
 
 canframe_status_t parse_line(const char *input, can_frame_t *out) {
-  const char *trimmed = input;
+  const char *trimmed;
+  const char *hash;
+  const char *p;
 
+  trimmed = input;
   while (*trimmed != '\0' && isspace((unsigned char)*trimmed)) {
     ++trimmed;
   }
 
-  if (strchr(trimmed, '#') != NULL) {
+  if (*trimmed == '(') {
+    return parse_candump_line(trimmed, out);
+  }
+
+  hash = strchr(trimmed, '#');
+  if (hash != NULL) {
+    for (p = trimmed; p < hash; ++p) {
+      if (isspace((unsigned char)*p)) {
+        return parse_candump_line(trimmed, out);
+      }
+    }
     return parse_compact_frame(trimmed, out);
   }
 
@@ -142,4 +354,3 @@ const char *canframe_status_string(canframe_status_t status) {
 
   return "unknown error";
 }
-
