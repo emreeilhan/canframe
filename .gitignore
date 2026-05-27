@@ -3,6 +3,7 @@ build/
 *.a
 *.out
 *.log
+!samples/*.log
 *.dSYM/
 canframe
 test_runner
