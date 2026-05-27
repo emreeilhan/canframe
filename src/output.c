@@ -21,7 +21,14 @@ void output_raw(FILE *stream, const can_frame_t *frame) {
 void output_json(FILE *stream, const can_frame_t *frame) {
   uint8_t i;
 
-  fprintf(stream, "{\"id\":\"0x%03" PRIX32 "\",\"extended\":%s,\"dlc\":%u,\"data\":[",
+  fprintf(stream, "{");
+  if (frame->has_timestamp) {
+    fprintf(stream, "\"timestamp\":%.6f,", frame->timestamp);
+  }
+  if (frame->ifname[0] != '\0') {
+    fprintf(stream, "\"interface\":\"%s\",", frame->ifname);
+  }
+  fprintf(stream, "\"id\":\"0x%03" PRIX32 "\",\"extended\":%s,\"dlc\":%u,\"data\":[",
           frame->id, frame->is_extended ? "true" : "false", frame->dlc);
   for (i = 0; i < frame->dlc; ++i) {
     fprintf(stream, "%s%u", i == 0 ? "" : ",", frame->data[i]);
