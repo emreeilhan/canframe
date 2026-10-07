@@ -40,14 +40,27 @@ jobs:
             build/fuzz/
             build/coverage/
   linux-vcan:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
-      - name: Install vcan tools and load module if needed
+      - name: Install and verify vcan for the running kernel
         run: |
+          set -euo pipefail
+          mkdir -p build/vcan
+          exec > >(tee build/vcan/environment.log) 2>&1
+          kernel_release="$(uname -r)"
+          module_package="linux-modules-extra-${kernel_release}"
+          uname -a
+          cat /etc/os-release
           sudo apt-get update
-          sudo apt-get install -y iproute2
-          sudo modprobe vcan || true
+          # A newer meta-package may target a kernel that this runner is not using.
+          apt-cache policy "$module_package"
+          sudo apt-get install -y --no-install-recommends iproute2 kmod "$module_package"
+          dpkg-query -W "$module_package"
+          modinfo -k "$kernel_release" vcan
+          sudo modprobe vcan
+          sudo modprobe can_raw
+          lsmod
       - name: Build Linux receiver
         run: make clean all CC=gcc
       - name: Privileged integration (skip is a failing environment blocker)
@@ -66,4 +79,4 @@ jobs:
         if: always()
         with:
           name: linux-vcan
-          path: build/vcan/run.log
+          path: build/vcan/
