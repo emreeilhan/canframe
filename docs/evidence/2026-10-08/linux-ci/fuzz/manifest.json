@@ -1,0 +1,65 @@
+{
+  "recorded_at_utc": "2026-10-07T21:23:10.599336+00:00",
+  "source_sha256": {
+    "fuzz/fuzz_deffile.c": "61ae770533089a171c264274ce5e1b5abd109f1f5787c1a527ab124fc4e4a13c",
+    "fuzz/fuzz_parser.c": "2f6548acff2498c747de0bf5d9ef6def74c74867ac5a1e75bf3786328fbea7d9",
+    "include/canframe.h": "207cb6be315e01f40b72a5d27d0ecc4075e7531860248531c82e86d8b0f31eed",
+    "include/cli.h": "c28cbe29e09082cef0f64bc148046089efe69e5718bc311a26615d8c6028330c",
+    "include/decode.h": "afdf17804679435d792c73a58dcb54d46d5b636bc690d700b5fcb3576caf250a",
+    "include/deffile.h": "6754805be9e8a44bdf9d62f7182f83d922d26502af349ad918e0935d4017a119",
+    "include/diagnostics.h": "6e0ae576b4613f764326aae5fa8848af4295173b57dd48795d8dc58efdb5a640",
+    "include/numbers.h": "cf6c3dad748d7ce45994cbb57de67875dabedf59c7e8a151ddcd5074083b6454",
+    "include/output.h": "49e558d5a1370ed0d1f8630e5121c82a9b1dab4fe1be13f14fbc531abc9e1f18",
+    "include/parser.h": "4a15a138c0d6c56460080c64f8cdabcea71bd0b38edc9e57eea1122f5d628fb0",
+    "include/socketcan.h": "d5f07b70d46d8577478ce620bc60ebee99f06f5a8678947c34064cf49da6bfd7",
+    "src/cli.c": "8d8b701fff8c56c49ded66506738e01dbc1c42257605c9c92a1b4d7009e1113d",
+    "src/decode.c": "1dd79fd7aadb38deb61cf85d9cef45fddb7f80a0bc4f975850131c8d2a3497da",
+    "src/deffile.c": "5e4ca5c1479832f659c9304199ba04e72c75dfdbec1a862e1513aea5a28f58fd",
+    "src/diagnostics.c": "de278a432201b816887ba0068c06dff448fccc3ccb40bc2ae3687715a7f18f76",
+    "src/main.c": "712e2f0ebfc42b3e2d2737c0735203e96ef6733a8bb9a44a4dcbbe13b2314410",
+    "src/numbers.c": "e67f0bca9cc437e459137206e003d2d02e4326e442a0b8fd2104d1cdccd8aac0",
+    "src/output.c": "81acec10dc74b6ce8ae579912d56389aa08436440d86c213dce7f2530e4d1484",
+    "src/parser.c": "8481c8818ce95f4c7207dadc5317084dc61c6374fdab9df3443aa03b13bc9b52",
+    "src/socketcan.c": "5b2885053daaedba320af53872cd26b7adff027ce431900a5c8a96e3b9e42e40"
+  },
+  "seed": 20261007,
+  "requested_runs": 30000,
+  "max_total_time_seconds": 60,
+  "base_sha": "b07313eb80fbff0a2a88c7db019be7ad7b4958d0",
+  "compiler": "Ubuntu clang version 18.1.3 (1ubuntu1)\nTarget: x86_64-pc-linux-gnu\nThread model: posix\nInstalledDir: /usr/bin\n",
+  "campaigns": [
+    {
+      "target": "parser",
+      "command": [
+        "/home/runner/work/canframe/canframe/build/fuzz/fuzz_parser",
+        "/home/runner/work/canframe/canframe/build/fuzz/parser/corpus",
+        "-seed=20261007",
+        "-runs=30000",
+        "-max_total_time=60",
+        "-max_len=4096",
+        "-artifact_prefix=/home/runner/work/canframe/canframe/build/fuzz/parser/"
+      ],
+      "elapsed_seconds": 0.16420713400000864,
+      "exit_code": 0,
+      "log": "/home/runner/work/canframe/canframe/build/fuzz/parser/run.log",
+      "binary_sha256": "8ed1d69a2c677e1b8a5353e7fc28e6305327a09511c6c910296a1b0e0e9f6f9b"
+    },
+    {
+      "target": "deffile",
+      "command": [
+        "/home/runner/work/canframe/canframe/build/fuzz/fuzz_deffile",
+        "/home/runner/work/canframe/canframe/build/fuzz/deffile/corpus",
+        "-seed=20261007",
+        "-runs=30000",
+        "-max_total_time=60",
+        "-max_len=65536",
+        "-artifact_prefix=/home/runner/work/canframe/canframe/build/fuzz/deffile/",
+        "-dict=fuzz/cfd.dict"
+      ],
+      "elapsed_seconds": 1.2679273070000079,
+      "exit_code": 0,
+      "log": "/home/runner/work/canframe/canframe/build/fuzz/deffile/run.log",
+      "binary_sha256": "9fb5400a75e82dcdfcb3c7e1d13f0021fe3ea6a7162d66867a3dc19a72137e45"
+    }
+  ]
+}

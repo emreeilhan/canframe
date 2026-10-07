@@ -57,3 +57,25 @@ success do not establish correctness for all inputs.
 `validation-summary.json` provides totals and artifact/source hashes. The
 portable logs, sanitizer logs, fuzz manifests/logs and LLVM coverage files are
 the underlying observations.
+
+## Native Linux follow-up — 8 October
+
+[Run 37688890032](https://github.com/emreeilhan/canframe/actions/runs/37688890032)
+passed for `b07313eb80fbff0a2a88c7db019be7ad7b4958d0`: GCC/Clang portable tests,
+ASan/UBSan, parser/CFD fuzz campaigns, source coverage and five privileged
+vcan integration groups. The first attempt failed because the runner lacked
+its vcan module; the required job now installs the official extra-module package
+matching the running kernel, rather than counting that skip as a pass.
+
+The [Linux records](../2026-10-08/linux-ci/) include module environment, vcan
+results, exact revision, LLVM export and fuzz logs. Linux Clang18 portable-test
+coverage includes all eight library modules: 661/726 lines (91.05%) and
+791/1042 branch outcomes (75.91%). The SocketCAN receive functions are largely
+uncovered by this coverage suite; the separate vcan job exercises them without
+merging its profiles into that denominator. The earlier seven-module macOS
+percentages measure a different scope/toolchain.
+
+The five vcan groups cover standard/extended-low-ID/RTR/empty normalization,
+ID filters, bounded idle timeout, SIGINT/SIGTERM cancellation, and live
+missing/stale/recovery plus diagnostic filtering. This is kernel-local socket
+validation; physical CAN controller/transceiver/wiring/arbitration remains untested.

@@ -128,3 +128,9 @@ contains 9 C groups, 17 CLI groups, ASan/UBSan results, two real 30,000-run fuzz
 smokes and raw LLVM source coverage: 98.03% lines and 76.96% branches over the
 seven portable library modules. Exact source hashes, commands and exclusions
 are retained. That macOS record does not verify Linux/vcan or physical CAN.
+
+The subsequent [native Linux run 37688890032](https://github.com/emreeilhan/canframe/actions/runs/37688890032)
+passed for `b07313e`, including five required vcan integration groups.
+[Linux raw records](docs/evidence/2026-10-08/linux-ci/) retain the verified module
+environment, socket checks and eight-module coverage (91.05% lines, 75.91% branches).
+Physical bus behavior remains outside those tests.
