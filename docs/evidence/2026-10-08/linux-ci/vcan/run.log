@@ -1,0 +1,6 @@
+standard/extended-low-ID/RTR/empty normalization: ok
+single/list/range filters: ok
+bounded idle timeout: ok
+SIGINT and SIGTERM cancellation: ok
+idle missing/stale/recovery and diagnostic filter: ok
+ok: 5 Linux vcan integration cases

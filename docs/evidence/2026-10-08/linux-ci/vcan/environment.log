@@ -1,0 +1,215 @@
+Linux runnervm8df0l 6.17.0-1022-azure #22-Ubuntu SMP Mon Jul 27 17:24:03 UTC 2026 x86_64 x86_64 x86_64 GNU/Linux
+PRETTY_NAME="Ubuntu 24.04.5 LTS"
+NAME="Ubuntu"
+VERSION_ID="24.04"
+VERSION="24.04.5 LTS (Noble Numbat)"
+VERSION_CODENAME=noble
+ID=ubuntu
+ID_LIKE=debian
+HOME_URL="https://www.ubuntu.com/"
+SUPPORT_URL="https://help.ubuntu.com/"
+BUG_REPORT_URL="https://bugs.launchpad.net/ubuntu/"
+PRIVACY_POLICY_URL="https://www.ubuntu.com/legal/terms-and-policies/privacy-policy"
+UBUNTU_CODENAME=noble
+LOGO=ubuntu-logo
+Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+Get:7 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1375 kB]
+Get:8 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [306 kB]
+Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Components [181 kB]
+Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1702 kB]
+Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [341 kB]
+Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Components [388 kB]
+Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1730 kB]
+Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [396 kB]
+Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [13.3 kB]
+Get:16 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse amd64 Components [940 B]
+Get:17 http://azure.archive.ubuntu.com/ubuntu noble-backports/main amd64 Components [5752 B]
+Get:18 http://azure.archive.ubuntu.com/ubuntu noble-backports/universe amd64 Components [12.6 kB]
+Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1073 kB]
+Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [223 kB]
+Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Components [46.4 kB]
+Get:22 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1218 kB]
+Get:23 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [245 kB]
+Get:24 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Components [76.3 kB]
+Get:25 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1566 kB]
+Get:26 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [361 kB]
+Get:27 http://azure.archive.ubuntu.com/ubuntu noble-security/multiverse Translation-en [11.6 kB]
+Get:28 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [519 kB]
+Get:29 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [463 kB]
+Get:30 https://packages.microsoft.com/ubuntu/24.04/prod noble/main armhf Packages [12.6 kB]
+Fetched 12.6 MB in 1s (9318 kB/s)
+Reading package lists...
+linux-modules-extra-6.17.0-1022-azure:
+  Installed: (none)
+  Candidate: 6.17.0-1022.22
+  Version table:
+     6.17.0-1022.22 500
+        500 mirror+file:/etc/apt/apt-mirrors.txt noble-updates/main amd64 Packages
+        500 mirror+file:/etc/apt/apt-mirrors.txt noble-security/main amd64 Packages
+Reading package lists...
+Building dependency tree...
+Reading state information...
+iproute2 is already the newest version (6.1.0-1ubuntu6.4).
+kmod is already the newest version (31+20240202-2ubuntu7.2).
+kmod set to manually installed.
+The following additional packages will be installed:
+  wireless-regdb
+The following NEW packages will be installed:
+  linux-modules-extra-6.17.0-1022-azure wireless-regdb
+0 upgraded, 2 newly installed, 0 to remove and 30 not upgraded.
+Need to get 51.0 MB of archives.
+After this operation, 50.7 MB of additional disk space will be used.
+Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+Get:2 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 wireless-regdb all 2026.05.30-0ubuntu1~24.04.1 [7714 B]
+Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 linux-modules-extra-6.17.0-1022-azure amd64 6.17.0-1022.22 [51.0 MB]
+Fetched 51.0 MB in 1s (47.8 MB/s)
+Selecting previously unselected package wireless-regdb.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 202296 files and directories currently installed.)
+Preparing to unpack .../wireless-regdb_2026.05.30-0ubuntu1~24.04.1_all.deb ...
+Unpacking wireless-regdb (2026.05.30-0ubuntu1~24.04.1) ...
+Selecting previously unselected package linux-modules-extra-6.17.0-1022-azure.
+Preparing to unpack .../linux-modules-extra-6.17.0-1022-azure_6.17.0-1022.22_amd64.deb ...
+Unpacking linux-modules-extra-6.17.0-1022-azure (6.17.0-1022.22) ...
+Setting up wireless-regdb (2026.05.30-0ubuntu1~24.04.1) ...
+Setting up linux-modules-extra-6.17.0-1022-azure (6.17.0-1022.22) ...
+Processing triggers for man-db (2.12.0-4build2) ...
+Not building database; man-db/auto-update is not 'true'.
+Processing triggers for linux-image-6.17.0-1022-azure (6.17.0-1022.22) ...
+/etc/kernel/postinst.d/initramfs-tools:
+update-initramfs: Generating /boot/initrd.img-6.17.0-1022-azure
+/etc/kernel/postinst.d/zz-update-grub:
+Sourcing file `/etc/default/grub'
+Sourcing file `/etc/default/grub.d/40-force-partuuid.cfg'
+Sourcing file `/etc/default/grub.d/50-cloudimg-settings.cfg'
+Sourcing file `/etc/default/grub.d/99-runner-performance.cfg'
+Generating grub configuration file ...
+GRUB_FORCE_PARTUUID is set, will attempt initrdless boot
+Found linux image: /boot/vmlinuz-6.17.0-1022-azure
+Found initrd image: /boot/initrd.img-6.17.0-1022-azure
+Warning: os-prober will not be executed to detect other bootable partitions.
+Systems on them will not be added to the GRUB boot configuration.
+Check GRUB_DISABLE_OS_PROBER documentation entry.
+Adding boot menu entry for UEFI Firmware Settings ...
+done
+
+Running kernel seems to be up-to-date.
+
+No services need to be restarted.
+
+No containers need to be restarted.
+
+No user sessions are running outdated binaries.
+
+No VM guests are running outdated hypervisor (qemu) binaries on this host.
+linux-modules-extra-6.17.0-1022-azure	6.17.0-1022.22
+filename:       /lib/modules/6.17.0-1022-azure/kernel/drivers/net/can/vcan.ko.zst
+alias:          rtnl-link-vcan
+author:         Urs Thuermann <urs.thuermann@volkswagen.de>
+license:        Dual BSD/GPL
+description:    virtual CAN interface
+srcversion:     F4E669602A3BC2D721CE6A6
+depends:        can-dev
+intree:         Y
+name:           vcan
+retpoline:      Y
+vermagic:       6.17.0-1022-azure SMP mod_unload modversions 
+sig_id:         PKCS#7
+signer:         Build time autogenerated kernel key
+sig_key:        7C:19:33:E1:B0:B1:B2:05:91:A7:3B:0B:1C:C6:2E:9B:A9:C7:B2:6F
+sig_hashalgo:   sha512
+signature:      0B:23:51:AA:E4:5B:BE:61:4E:8A:69:3F:1D:B4:0E:D7:9B:0F:C4:90:
+		5C:D8:B2:EC:FC:42:FF:00:89:FB:B9:45:66:23:9B:92:2C:72:D3:B1:
+		E7:07:9F:42:4A:2E:EC:5B:39:46:61:0C:D7:97:0B:4F:0D:DB:44:09:
+		94:4E:C2:40:09:4D:44:3A:F5:38:CF:F3:8B:DB:A5:D3:A1:0A:F7:28:
+		5D:CE:E1:CD:B4:DF:40:95:6D:E9:1D:7C:C6:F7:01:EE:FD:E4:C5:55:
+		72:B1:34:55:48:A6:4D:2E:86:FC:6C:E4:58:15:AC:06:B7:0A:0C:24:
+		59:4F:F0:23:E4:0A:50:97:C9:75:F7:F9:71:7F:5F:76:57:C5:AA:01:
+		84:D1:03:B1:31:74:16:1B:10:F4:F9:02:4D:E7:CE:D8:65:73:48:F1:
+		82:DB:94:05:83:D8:B8:6E:41:A6:41:DC:17:EE:48:69:3B:45:B4:D6:
+		A2:4D:B0:BA:5D:16:AB:0C:DF:90:68:B6:90:F4:28:B4:F8:AF:49:34:
+		57:4D:DF:5F:90:43:82:27:97:2B:2F:E6:14:D8:E0:AB:CF:8E:52:54:
+		B6:80:F4:BC:4D:4E:2D:DF:F3:43:65:99:74:A1:8E:E5:C0:C0:A2:FD:
+		A3:C5:3E:73:DE:B2:30:38:FA:6A:48:9C:79:61:34:B8:7B:54:C0:F1:
+		F2:17:3F:B1:58:40:1C:4A:9F:D0:47:07:E2:66:6F:4A:9D:D0:3C:61:
+		F7:06:D8:94:54:35:50:EE:8A:AD:63:65:C8:77:9C:92:5B:4D:42:40:
+		8F:09:9D:45:50:93:B3:3B:58:D6:24:FB:74:99:E8:BC:B3:64:31:2E:
+		7F:67:5B:01:FA:FF:2A:78:CA:35:FA:6E:65:ED:F6:2D:52:B2:0E:23:
+		4B:FC:01:0C:05:A4:41:7D:65:1F:57:70:9F:B8:77:2A:36:54:E1:1A:
+		CD:88:0C:1A:19:ED:36:6D:0D:8F:DF:1D:F6:E5:38:DA:B3:C2:E7:B3:
+		64:D6:A2:40:D5:6E:99:9E:9D:4E:88:BB:05:32:72:C6:52:8E:E2:52:
+		20:1C:06:76:02:96:25:B0:0B:CE:9F:21:E7:3D:92:28:FE:CD:09:5F:
+		8B:AA:80:6C:44:98:C8:FF:FB:BD:A5:85:58:7C:6A:F2:CB:64:B5:67:
+		97:B3:7D:B7:5D:8A:0C:23:08:92:82:05:07:62:B2:05:73:98:2E:9D:
+		EF:D4:1B:00:12:27:D5:DF:0B:C4:C1:48:FF:22:B1:88:49:48:0B:35:
+		5F:0F:EC:31:D2:44:6F:5C:19:32:16:57:0F:6E:4D:4B:D3:D2:E6:62:
+		D6:0B:07:67:53:A3:42:80:9E:E5:A6:67
+parm:           echo:Echo sent frames (for testing). Default: 0 (Off) (bool)
+Module                  Size  Used by
+can_raw                20480  0
+can                    24576  1 can_raw
+vcan                   12288  0
+can_dev                53248  1 vcan
+cls_bpf                24576  2
+sch_ingress            20480  1
+xt_MASQUERADE          16384  1
+bridge                413696  0
+xt_set                 20480  0
+ip_set                 61440  1 xt_set
+nft_chain_nat          12288  5
+nf_nat                 61440  2 nft_chain_nat,xt_MASQUERADE
+xt_addrtype            12288  4
+xfrm_user              65536  1
+xfrm_algo              16384  1 xfrm_user
+overlay               217088  0
+mlx5_ib               524288  0
+macsec                 73728  1 mlx5_ib
+ib_uverbs             196608  1 mlx5_ib
+ib_core               512000  2 ib_uverbs,mlx5_ib
+mlx5_core            2846720  1 mlx5_ib
+mlxfw                  36864  1 mlx5_core
+tls                   155648  1 mlx5_core
+psample                20480  1 mlx5_core
+8021q                  45056  0
+garp                   20480  1 8021q
+mrp                    20480  1 8021q
+stp                    12288  2 bridge,garp
+llc                    16384  3 bridge,stp,garp
+xt_owner               12288  1
+xt_tcpudp              16384  0
+xt_conntrack           12288  2
+nf_conntrack          188416  3 xt_conntrack,nf_nat,xt_MASQUERADE
+nf_defrag_ipv6         24576  1 nf_conntrack
+nf_defrag_ipv4         12288  1 nf_conntrack
+nft_compat             20480  8
+nf_tables             372736  95 nft_compat,nft_chain_nat
+binfmt_misc            24576  1
+nls_iso8859_1          12288  1
+kvm_amd               237568  0
+ccp                   159744  1 kvm_amd
+kvm                  1404928  1 kvm_amd
+joydev                 32768  0
+serio_raw              20480  0
+irqbypass              12288  1 kvm
+hid_generic            12288  0
+polyval_clmulni        12288  0
+hid_hyperv             16384  0
+ghash_clmulni_intel    12288  0
+aesni_intel            94208  0
+hv_netvsc             114688  0
+hyperv_keyboard        12288  0
+hid                   249856  2 hid_hyperv,hid_generic
+hyperv_drm             20480  0
+sch_fq_codel           24576  9
+dm_multipath           45056  0
+msr                    12288  0
+nvme_fabrics           36864  0
+efi_pstore             12288  0
+nfnetlink              20480  6 nft_compat,nf_tables,ip_set
+ip_tables              32768  0
+x_tables               61440  8 xt_conntrack,nft_compat,xt_tcpudp,xt_addrtype,xt_owner,xt_set,ip_tables,xt_MASQUERADE
+autofs4                57344  2
