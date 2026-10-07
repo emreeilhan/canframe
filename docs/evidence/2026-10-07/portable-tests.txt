@@ -1,0 +1,34 @@
+clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -MMD -MP -c src/output.c -o src/output.o
+clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -MMD -MP -c src/deffile.c -o src/deffile.o
+clang src/main.o src/cli.o src/parser.o src/output.o src/decode.o src/deffile.o src/numbers.o src/diagnostics.o src/socketcan.o -o canframe 
+clang src/cli.o src/parser.o src/output.o src/decode.o src/deffile.o src/numbers.o src/diagnostics.o src/socketcan.o tests/test_main.o tests/test_parser_compact.o tests/test_parser_candump.o tests/test_output.o tests/test_filter.o tests/test_hardening.o tests/test_deffile.o tests/test_decode.o tests/test_diagnostics.o tests/test_extended_output.o -o test_runner 
+./test_runner
+test_parser_compact: ok
+test_parser_candump: ok
+test_output: ok
+test_filter: ok
+test_hardening: ok
+test_deffile: ok
+test_decode: ok
+test_diagnostics: ok
+test_extended_output: ok
+ok: 9 C test groups
+python3 tests/test_cli.py
+raw golden: ok
+JSON golden: ok
+signal golden: ok
+defs/decode aliases: ok
+definitions alone preserve output: ok
+numeric filter keeps standard and extended: ok
+invalid CLI combinations: ok
+parser hardening CLI: ok
+blank and CRLF input: ok
+JSON escaping: ok
+decode failure retains raw: ok
+definition startup errors: ok
+wide raw stays exact and physical null: ok
+offline source timestamps and EOF: ok
+timestamp unavailable: ok
+three original sample formats: ok
+explicit unsupported live mode: ok
+ok: 17 CLI golden/semantic cases

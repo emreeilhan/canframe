@@ -1,0 +1,51 @@
+mkdir -p build/coverage
+rm -f build/coverage/*.profraw
+/opt/homebrew/opt/llvm/bin/clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -g -O0 -fprofile-instr-generate -fcoverage-mapping src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c src/socketcan.c tests/test_main.c tests/test_parser_compact.c tests/test_parser_candump.c tests/test_output.c tests/test_filter.c tests/test_hardening.c tests/test_deffile.c tests/test_decode.c tests/test_diagnostics.c tests/test_extended_output.c -o build/coverage/test_runner 
+/opt/homebrew/opt/llvm/bin/clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -g -O0 -fprofile-instr-generate -fcoverage-mapping src/main.c src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c src/socketcan.c -o build/coverage/canframe 
+LLVM_PROFILE_FILE='build/coverage/unit-%p.profraw' ./build/coverage/test_runner
+test_parser_compact: ok
+test_parser_candump: ok
+test_output: ok
+test_filter: ok
+test_hardening: ok
+test_deffile: ok
+test_decode: ok
+test_diagnostics: ok
+test_extended_output: ok
+ok: 9 C test groups
+LLVM_PROFILE_FILE='build/coverage/cli-%p.profraw' CANFRAME_BIN=./build/coverage/canframe python3 tests/test_cli.py
+raw golden: ok
+JSON golden: ok
+signal golden: ok
+defs/decode aliases: ok
+definitions alone preserve output: ok
+numeric filter keeps standard and extended: ok
+invalid CLI combinations: ok
+parser hardening CLI: ok
+blank and CRLF input: ok
+JSON escaping: ok
+decode failure retains raw: ok
+definition startup errors: ok
+wide raw stays exact and physical null: ok
+offline source timestamps and EOF: ok
+timestamp unavailable: ok
+three original sample formats: ok
+explicit unsupported live mode: ok
+ok: 17 CLI golden/semantic cases
+/opt/homebrew/opt/llvm/bin/llvm-profdata merge -sparse build/coverage/*.profraw -o build/coverage/merged.profdata
+/opt/homebrew/opt/llvm/bin/llvm-cov report build/coverage/canframe -object build/coverage/test_runner -instr-profile=build/coverage/merged.profdata src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c > build/coverage/report.txt
+/opt/homebrew/opt/llvm/bin/llvm-cov export build/coverage/canframe -object build/coverage/test_runner -instr-profile=build/coverage/merged.profdata src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c > build/coverage/coverage.json
+/opt/homebrew/opt/llvm/bin/llvm-cov show build/coverage/canframe -object build/coverage/test_runner -instr-profile=build/coverage/merged.profdata src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c -format=html -output-dir=build/coverage/html
+COVERAGE_CC=/opt/homebrew/opt/llvm/bin/clang python3 tools/coverage_metadata.py src/cli.c src/parser.c src/output.c src/decode.c src/deffile.c src/numbers.c src/diagnostics.c
+cat build/coverage/report.txt
+Filename                      Regions    Missed Regions     Cover   Functions  Missed Functions  Executed       Lines      Missed Lines     Cover    Branches   Missed Branches     Cover
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cli.c                             216                18    91.67%           5                 0   100.00%          74                 2    97.30%         149                27    81.88%
+parser.c                          222                17    92.34%           9                 0   100.00%         130                 2    98.46%         174                39    77.59%
+output.c                          175                23    86.86%          11                 0   100.00%         110                 9    91.82%         118                24    79.66%
+decode.c                          233                17    92.70%           5                 0   100.00%          72                 0   100.00%         142                25    82.39%
+deffile.c                         357                58    83.75%           6                 0   100.00%         120                 0   100.00%         221                74    66.52%
+numbers.c                         206                14    93.20%           4                 0   100.00%          71                 0   100.00%         136                23    83.09%
+diagnostics.c                     176                11    93.75%           7                 0   100.00%          82                 0   100.00%         119                32    73.11%
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+TOTAL                            1585               158    90.03%          47                 0   100.00%         659                13    98.03%        1059               244    76.96%

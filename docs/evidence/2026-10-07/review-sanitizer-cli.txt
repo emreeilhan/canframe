@@ -1,0 +1,18 @@
+raw golden: ok
+JSON golden: ok
+signal golden: ok
+defs/decode aliases: ok
+definitions alone preserve output: ok
+numeric filter keeps standard and extended: ok
+invalid CLI combinations: ok
+parser hardening CLI: ok
+blank and CRLF input: ok
+JSON escaping: ok
+decode failure retains raw: ok
+definition startup errors: ok
+wide raw stays exact and physical null: ok
+offline source timestamps and EOF: ok
+timestamp unavailable: ok
+three original sample formats: ok
+explicit unsupported live mode: ok
+ok: 17 CLI golden/semantic cases

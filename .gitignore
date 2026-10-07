@@ -10,3 +10,8 @@ test_runner
 fuzz_parser
 fuzz_deffile
 
+
+*.d
+__pycache__/
+*.pyc
+!tests/golden/*.log

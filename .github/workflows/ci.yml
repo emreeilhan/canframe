@@ -1,14 +1,69 @@
 name: ci
-
 on:
   push:
     branches: [main]
   pull_request:
-
+permissions:
+  contents: read
 jobs:
-  build-and-test:
+  unit:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        cc: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+      - name: C groups and CLI golden cases
+        run: make clean all test CC=${{ matrix.cc }}
+  sanitizer-fuzz-coverage:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: make
-      - run: make test
+      - name: Install matching LLVM tools
+        run: sudo apt-get update && sudo apt-get install -y clang llvm
+      - name: ASan and UBSan
+        run: make sanitize CC=clang
+      - name: Real bounded libFuzzer campaigns
+        run: make fuzz-smoke FUZZ_CC=clang
+        env:
+          FUZZ_RUNS: '30000'
+          FUZZ_SECONDS: '60'
+          FUZZ_SEED: '20261007'
+      - name: LLVM source coverage (main excluded)
+        run: make coverage COVERAGE_CC=clang LLVM_PROFDATA=llvm-profdata LLVM_COV=llvm-cov
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: sanitizer-fuzz-coverage
+          path: |
+            build/fuzz/
+            build/coverage/
+  linux-vcan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install vcan tools and load module if needed
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y iproute2
+          sudo modprobe vcan || true
+      - name: Build Linux receiver
+        run: make clean all CC=gcc
+      - name: Privileged integration (skip is a failing environment blocker)
+        run: |
+          mkdir -p build/vcan
+          set +e
+          sudo env CANFRAME_BIN="$PWD/canframe" python3 tests/test_vcan.py > build/vcan/run.log 2>&1
+          status=$?
+          cat build/vcan/run.log
+          if [ "$status" -eq 77 ]; then
+            echo "::error::SKIPPED — vcan unavailable; integration not validated"
+            exit 1
+          fi
+          exit "$status"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: linux-vcan
+          path: build/vcan/run.log

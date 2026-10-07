@@ -1,0 +1,10 @@
+test_parser_compact: ok
+test_parser_candump: ok
+test_output: ok
+test_filter: ok
+test_hardening: ok
+test_deffile: ok
+test_decode: ok
+test_diagnostics: ok
+test_extended_output: ok
+ok: 9 C test groups

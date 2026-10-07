@@ -1,0 +1,144 @@
+{
+  "recorded_at_utc": "2026-10-07T21:14:18.672341+00:00",
+  "base_sha": "59156ab4d0d8f1edf02256708c9ef056426c0588",
+  "working_tree_changes_included": true,
+  "validation": {
+    "portable_unit_groups": 9,
+    "portable_cli_groups": 17,
+    "sanitizer_unit_groups": 9,
+    "sanitizer_cli_groups": 17,
+    "asan_leak_detection": false
+  },
+  "coverage": {
+    "compiler": "Homebrew clang version 23.1.1\nTarget: arm64-apple-darwin27.0.0\nThread model: posix\nInstalledDir: /opt/homebrew/Cellar/llvm/23.1.1/bin\nConfiguration file: /opt/homebrew/Cellar/llvm/23.1.1/etc/clang/arm64-apple-darwin27.cfg\n",
+    "included_sources": [
+      "src/cli.c",
+      "src/parser.c",
+      "src/output.c",
+      "src/decode.c",
+      "src/deffile.c",
+      "src/numbers.c",
+      "src/diagnostics.c"
+    ],
+    "excluded_sources": {
+      "src/main.c": "entry point; unit plus CLI execution is run, but entry point excluded from application-library denominator",
+      "src/socketcan.c": "Linux implementation unavailable on this host; portable unsupported stub is exercised but excluded"
+    },
+    "totals": {
+      "lines": {
+        "count": 659,
+        "covered": 646,
+        "percent": 98.02731411229135
+      },
+      "functions": {
+        "count": 47,
+        "covered": 47,
+        "percent": 100
+      },
+      "instantiations": {
+        "count": 47,
+        "covered": 47,
+        "percent": 100
+      },
+      "regions": {
+        "count": 1585,
+        "covered": 1427,
+        "notcovered": 158,
+        "percent": 90.03154574132492
+      },
+      "branches": {
+        "count": 1059,
+        "covered": 815,
+        "notcovered": 244,
+        "percent": 76.95939565627951
+      },
+      "mcdc": {
+        "count": 0,
+        "covered": 0,
+        "notcovered": 0,
+        "percent": 0
+      }
+    }
+  },
+  "fuzz": {
+    "seed": 20261007,
+    "requested_runs_per_target": 30000,
+    "max_total_time_seconds_per_target": 60,
+    "actual_campaigns": [
+      {
+        "target": "parser",
+        "command": [
+          "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/fuzz_parser",
+          "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/parser/corpus",
+          "-seed=20261007",
+          "-runs=30000",
+          "-max_total_time=60",
+          "-max_len=4096",
+          "-artifact_prefix=/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/parser/"
+        ],
+        "elapsed_seconds": 0.5034365000028629,
+        "exit_code": 0,
+        "log": "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/parser/run.log",
+        "binary_sha256": "22178096399ab39e8ec432cfd16aa5fd812008fbebc02f4ca84702f167af46c6"
+      },
+      {
+        "target": "deffile",
+        "command": [
+          "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/fuzz_deffile",
+          "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/deffile/corpus",
+          "-seed=20261007",
+          "-runs=30000",
+          "-max_total_time=60",
+          "-max_len=65536",
+          "-artifact_prefix=/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/deffile/",
+          "-dict=fuzz/cfd.dict"
+        ],
+        "elapsed_seconds": 0.9464216659980593,
+        "exit_code": 0,
+        "log": "/private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/deffile/run.log",
+        "binary_sha256": "88463c8902c60310419b6749e7f86ea95f4b652d4ad262f072f0762b99db93b5"
+      }
+    ]
+  },
+  "limits": [
+    "Linux SocketCAN/vcan not run in this macOS record; CI must validate the committed revision.",
+    "No physical CAN controller/transceiver/bus measurement.",
+    "Bounded smoke campaign, not a 10-minute campaign or proof of absence of bugs.",
+    "Coverage excludes main.c and non-Linux SocketCAN module."
+  ],
+  "source_sha256": {
+    "include/canframe.h": "207cb6be315e01f40b72a5d27d0ecc4075e7531860248531c82e86d8b0f31eed",
+    "include/cli.h": "c28cbe29e09082cef0f64bc148046089efe69e5718bc311a26615d8c6028330c",
+    "include/decode.h": "afdf17804679435d792c73a58dcb54d46d5b636bc690d700b5fcb3576caf250a",
+    "include/deffile.h": "6754805be9e8a44bdf9d62f7182f83d922d26502af349ad918e0935d4017a119",
+    "include/diagnostics.h": "6e0ae576b4613f764326aae5fa8848af4295173b57dd48795d8dc58efdb5a640",
+    "include/numbers.h": "cf6c3dad748d7ce45994cbb57de67875dabedf59c7e8a151ddcd5074083b6454",
+    "include/output.h": "49e558d5a1370ed0d1f8630e5121c82a9b1dab4fe1be13f14fbc531abc9e1f18",
+    "include/parser.h": "4a15a138c0d6c56460080c64f8cdabcea71bd0b38edc9e57eea1122f5d628fb0",
+    "include/socketcan.h": "d5f07b70d46d8577478ce620bc60ebee99f06f5a8678947c34064cf49da6bfd7",
+    "src/cli.c": "8d8b701fff8c56c49ded66506738e01dbc1c42257605c9c92a1b4d7009e1113d",
+    "src/decode.c": "1dd79fd7aadb38deb61cf85d9cef45fddb7f80a0bc4f975850131c8d2a3497da",
+    "src/deffile.c": "5e4ca5c1479832f659c9304199ba04e72c75dfdbec1a862e1513aea5a28f58fd",
+    "src/diagnostics.c": "de278a432201b816887ba0068c06dff448fccc3ccb40bc2ae3687715a7f18f76",
+    "src/main.c": "712e2f0ebfc42b3e2d2737c0735203e96ef6733a8bb9a44a4dcbbe13b2314410",
+    "src/numbers.c": "e67f0bca9cc437e459137206e003d2d02e4326e442a0b8fd2104d1cdccd8aac0",
+    "src/output.c": "81acec10dc74b6ce8ae579912d56389aa08436440d86c213dce7f2530e4d1484",
+    "src/parser.c": "8481c8818ce95f4c7207dadc5317084dc61c6374fdab9df3443aa03b13bc9b52",
+    "src/socketcan.c": "5b2885053daaedba320af53872cd26b7adff027ce431900a5c8a96e3b9e42e40"
+  },
+  "artifact_sha256": {
+    "coverage-build-and-run.txt": "d819c472c6213a6c7f38030fbdec86eb0d5c85d05e6b91e099e7687e3bca4354",
+    "coverage-export.json": "a24153b78ab63f8fcf2fee63d2837be25bc9b896790bec7ea749055ac37789ed",
+    "coverage-merged.profdata": "da9d7b2607149baac30ee6498ca5743d709885a61fc530dd1b225fe11d16e2db",
+    "coverage-report.txt": "1354384f163c125b91e4e986b8df0d6e20b48d37cc9e2beccef1df9a90057f67",
+    "coverage-scope.json": "32ce730b5972b324b05d43e5c532971d6515ce7b160d417d0cc4285a7b18437b",
+    "fuzz-build-and-run.txt": "87f0b4fee6375d2fd604bd9ee51bf63e91e5ed479cd9171c5c8a2fda0ac22b22",
+    "fuzz-deffile.txt": "093f72fe3b4be67826701e5b20e06d079333e8020151ae4d3ccf194e2e823577",
+    "fuzz-manifest.json": "026d4e5a74154a9463a10f669ea1a52270592f268d9b31632ab5ba9ded0eb104",
+    "fuzz-parser.txt": "0af82148a69fdfeeecf37914eb06667e3538fef39cbc4bb060c14d3035e722ed",
+    "portable-tests.txt": "ae6e5a9d9afd6e9dc268a3ef6bb3d3d766e87bcc436281d2fdd30679ba524c09",
+    "review-sanitizer-cli.txt": "1e715152013a25fe5da1da4ac6c01175292dd3760f173881bd50acbce58629b3",
+    "review-sanitizer-context.json": "55d9fb6abc23d509cca574918e2c2d78aaf17dd0ee74efe1c14e1af9c15217fc",
+    "review-sanitizer-unit.txt": "370a4df183bcf7dfa409699445fead13c6a39062c9f44add66101eddb94b46f9"
+  }
+}

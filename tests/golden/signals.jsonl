@@ -1,0 +1,5 @@
+{"id":"0x100","extended":false,"dlc":2,"data":[18,52],"rtr":false,"decode_status":"ok","signals":[{"name":"rpm","raw_hex":"0x0000000000001234","raw_unsigned":"4660","physical":4660,"unit":"rpm","quality":"valid","precision_warning":false}]}
+{"id":"0x102","extended":false,"dlc":2,"data":[3,137],"rtr":false,"decode_status":"ok","signals":[{"name":"coolant","raw_hex":"0x0000000000000389","raw_unsigned":"905","raw_signed":"905","physical":90.5,"unit":"degC","quality":"valid","precision_warning":false}]}
+{"id":"0x100","extended":true,"dlc":2,"data":[18,52],"rtr":false,"decode_status":"ok","signals":[{"name":"value","raw_hex":"0x0000000000003412","raw_unsigned":"13330","physical":13330,"unit":"count","quality":"valid","precision_warning":false}]}
+{"id":"0x123","extended":false,"dlc":0,"data":[],"rtr":true,"decode_status":"not_applicable","signals":[]}
+{"id":"0x200","extended":false,"dlc":1,"data":[255],"rtr":false,"decode_status":"no_definition","signals":[]}

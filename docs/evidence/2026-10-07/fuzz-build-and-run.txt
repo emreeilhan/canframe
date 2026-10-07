@@ -1,0 +1,6 @@
+mkdir -p build/fuzz
+/opt/homebrew/opt/llvm/bin/clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -fsanitize=fuzzer src/parser.c src/deffile.c src/decode.c src/numbers.c fuzz/fuzz_parser.c -o build/fuzz/fuzz_parser 
+/opt/homebrew/opt/llvm/bin/clang -Iinclude -std=c11 -Wall -Wextra -Werror -pedantic -g -O1 -fsanitize=address,undefined -fno-sanitize-recover=undefined -fno-omit-frame-pointer -fsanitize=fuzzer src/parser.c src/deffile.c src/decode.c src/numbers.c fuzz/fuzz_deffile.c -o build/fuzz/fuzz_deffile 
+ASAN_OPTIONS=detect_leaks=0 UBSAN_OPTIONS=halt_on_error=1 FUZZ_CC=/opt/homebrew/opt/llvm/bin/clang python3 tools/run_fuzz.py
+parser: exit=0, elapsed=0.503s; /private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/parser/run.log
+deffile: exit=0, elapsed=0.946s; /private/tmp/embedded-upgrades-20261007/canframe/build/fuzz/deffile/run.log
